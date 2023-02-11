@@ -1,0 +1,59 @@
+<div class="container" *ngIf="isLoggedIn; else loggedOut">
+  <div class="container-fluid mb-5 mt-4">
+    <div class="row mb-4">
+      <div class="col-md-9">
+        <form
+          name="form"
+          (ngSubmit)="f.form.valid && searchName()"
+          #f="ngForm"
+          novalidate
+        >
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Buscar por nombre"
+              aria-label="Buscar por nombre"
+              aria-describedby="basic-addon2"
+              name="search"
+              [(ngModel)]="name"
+            />
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-primary">
+                <fa-icon class="icon type" icon="search" size="lg"></fa-icon>
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row pb-4">
+      <div
+        class="col-md-4"
+        *ngFor="let c of characters; let i = index"
+        [class.active]="i == currentIndex"
+      >
+        <div class="card" style="width: 18rem">
+          <img class="card-img-top" :src="{{ c.image }}" alt="Card image cap" />
+          <div class="card-body">
+            <h5 class="card-title">{{ c.name }}</h5>
+            <p class="card-text"></p>
+            <p class="card-text">
+              {{ c.comment }}
+            </p>
+            <p class="card-text">
+              <span class="badge rounded-pill bg-secondary">
+                Score
+                <span class="badge rounded-pill bg-dark">{{ c.score }}</span>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loggedOut> Please login. </ng-template>
